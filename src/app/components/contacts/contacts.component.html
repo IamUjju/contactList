@@ -1,0 +1,27 @@
+<div class="parent-container">
+    <input type="text" placeholder="Search..." [(ngModel)]="searchTerm" (input)="filterContacts()"
+        class="search-input" />
+
+    <div class="sub-container" *ngFor="let group of filteredContactList">
+        <div class="child-container" *ngFor="let key of objectKeys(group)">
+            <div class="contact-container" [id]="key">
+                <strong class="letter-heading">{{ key }}</strong>
+                <div *ngFor="let contact of group[key]">
+                    <div class="contact-item" [class.selected]="selectedContact === contact"
+                        (click)="toggleDetails(contact)">
+                        <div class="contact-name">{{ contact.name }}</div>
+                        <div *ngIf="selectedContact === contact" class="contact-details">
+                            <p>Phone: {{ contact.phone }}</p>
+                            <p>ID: {{ contact.id }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sideBar">
+                <div class="sideBar-item" (click)="scrollToIndex(key)">
+                    <strong>{{ key }}</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
